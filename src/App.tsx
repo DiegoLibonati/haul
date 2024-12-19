@@ -1,65 +1,88 @@
 import { useEffect, useState } from "react";
+
+import { Alert, Item, EditState, FormState } from "./entities/entities";
+
 import { ItemGrocery } from "./components/ItemGrocery";
-import { getLocalStorage } from "./helpers/getLocalStorage.ts";
+
+import { getItemsFromLocalStorage } from "./helpers/getItemsFromLocalStorage.ts";
+import { setLocalStorage } from "./helpers/setLocalStorage.ts";
+import { LOCAL_STORAGE_KEY_ITEMS } from "./constants/config.ts";
+
 import "./App.css";
-import { Alert, Item } from "./entities/entities";
 
 function App(): JSX.Element {
-  const [items, setItems] = useState<Item[]>(getLocalStorage());
-  const [name, setName] = useState<string>("");
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [editId, setEditId] = useState<string>("");
+  const [items, setItems] = useState<Item[]>(getItemsFromLocalStorage());
+  const [edit, setEdit] = useState<EditState>({
+    idEdit: "",
+    isEditing: false,
+  });
   const [alert, setAlert] = useState<Alert>({
     type: "",
     message: "",
     show: false,
   });
+  const [form, setForm] = useState<FormState>({
+    name: "",
+  });
+
+  const onInputChange: React.ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
+    const name = target.name;
+    const value = target.value;
+
+    setForm((state) => ({ ...state, [name]: value }));
+  };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
-    if (!name) {
-      setAlert({ type: "error", message: "Invalid entry", show: true });
-      return;
-    }
+    const name = form.name.trim();
+    const isEditing = edit.isEditing;
+    const idEdit = edit.idEdit;
+
+    if (!name)
+      return setAlert({ type: "error", message: "Invalid entry", show: true });
 
     // Editing
-    if (name && isEditing) {
+    if (isEditing) {
       setAlert({ type: "success", message: "Edit successfully", show: true });
-      setItems(
-        items.map((item) => {
-          if (item.id === editId) {
-            return { ...item, title: name };
-          }
 
-          return item;
-        })
-      );
+      const itemsEdited = items.map((item) => {
+        if (item.id === idEdit) item.title = name;
+        return item;
+      });
 
-      setName("");
-      setEditId("");
-      setIsEditing(false);
+      setItems(itemsEdited);
+      setForm((state) => ({ ...state, name: "" }));
+      setEdit((state) => ({ ...state, idEdit: "", isEditing: false }));
+
       return;
     }
 
     // New Item
     setAlert({ type: "success", message: "Added successfully", show: true });
-    const newItem = { id: new Date().getTime().toString(), title: name };
 
-    setItems([...items, newItem]);
-    setName("");
+    const id = new Date().getTime().toString();
+    const newItem = { id: id, title: name };
+
+    setItems((state) => [...state, newItem]);
+    setForm((state) => ({ ...state, name: "" }));
   };
 
   const handleDeleteItem = (id: string) => {
-    const newArray = items.filter((item) => item.id !== id);
+    const arr = items.filter((item) => item.id !== id);
     setAlert({ type: "error", message: "Removed successfully", show: true });
-    setItems(newArray);
+    setItems(arr);
   };
 
   const handleEditItem = (id: string, title: string) => {
-    setIsEditing(true);
-    setEditId(id);
-    setName(title);
+    setEdit((state) => ({ ...state, idEdit: id, isEditing: true }));
+    setForm((state) => ({ ...state, name: title }));
+  };
+
+  const handleClearItems: React.MouseEventHandler<HTMLButtonElement> = () => {
+    setItems([]);
   };
 
   useEffect(() => {
@@ -71,7 +94,7 @@ function App(): JSX.Element {
   }, [alert.show]);
 
   useEffect(() => {
-    localStorage.setItem("list", JSON.stringify(items));
+    setLocalStorage<Item[]>(LOCAL_STORAGE_KEY_ITEMS, items);
   }, [items]);
 
   return (
@@ -79,38 +102,41 @@ function App(): JSX.Element {
       <section className="grocery_header">
         <h2>Grocery Bud</h2>
 
-        {alert.show && <h3 className={`${alert.type}`}>{alert.message}</h3>}
+        {alert.show && <h3 className={`alert ${alert.type}`}>{alert.message}</h3>}
 
-        <form className="grocery_form" onSubmit={(e) => handleSubmit(e)}>
+        <form className="grocery_form" onSubmit={handleSubmit}>
           <input
+            id="name"
             type="text"
-            value={name}
+            value={form.name}
+            name="name"
             placeholder="Build a desk"
-            onChange={(e) => setName(e.target.value)}
+            onChange={onInputChange}
           ></input>
-          {isEditing ? (
-            <button type="submit">EDIT</button>
-          ) : (
-            <button type="submit">SUBMIT</button>
-          )}
+          <button type="submit" aria-label="submit">
+            {edit.isEditing ? "EDIT" : "SUBMIT"}
+          </button>
         </form>
       </section>
 
       <section className="grocery_items_container">
-        {items.map((item) => (
+        {items?.map((item) => (
           <ItemGrocery
             key={item.id}
-            {...item}
+            id={item.id}
+            title={item.title}
             removeItem={handleDeleteItem}
             editItem={handleEditItem}
           ></ItemGrocery>
         ))}
-        {!(items.length === 0) ? (
-          <button className="clear-items" onClick={() => setItems([])}>
+        {items?.length !== 0 && (
+          <button
+            className="clear-items"
+            aria-label="clear items"
+            onClick={handleClearItems}
+          >
             Clear Items
           </button>
-        ) : (
-          <></>
         )}
       </section>
     </main>

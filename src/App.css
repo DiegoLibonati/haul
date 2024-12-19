@@ -18,6 +18,11 @@ body {
   background-color: #cecece;
 }
 
+button {
+  background: none;
+  border: none;
+}
+
 .grocery_container {
   display: flex;
   align-items: center;

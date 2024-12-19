@@ -1,5 +1,11 @@
 import { BsTrash, BsPencil } from "react-icons/bs";
-import { ItemGroceryProps } from "../entities/entities";
+
+interface ItemGroceryProps {
+  id: string;
+  title: string;
+  removeItem: (id: string) => void;
+  editItem: (id: string, title: string) => void;
+}
 
 export const ItemGrocery = ({
   id,
@@ -12,14 +18,20 @@ export const ItemGrocery = ({
       <h2>{title}</h2>
 
       <div className="grocery_item_btns">
-        <BsPencil
-          className="btn-edit"
+        <button
+          type="button"
+          aria-label="edit item"
           onClick={() => editItem(id, title)}
-        ></BsPencil>
-        <BsTrash
-          className="btn-delete"
+        >
+          <BsPencil className="btn-edit"></BsPencil>
+        </button>
+        <button
+          type="button"
+          aria-label="remove item"
           onClick={() => removeItem(id)}
-        ></BsTrash>
+        >
+          <BsTrash className="btn-delete"></BsTrash>
+        </button>
       </div>
     </article>
   );

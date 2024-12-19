@@ -11,11 +11,11 @@ export type Item = {
   title: string;
 };
 
-// Interfaces
+export type EditState = {
+  idEdit: string;
+  isEditing: boolean;
+};
 
-export interface ItemGroceryProps {
-  id: string;
-  title: string;
-  removeItem: (id: string) => void;
-  editItem: (id: string, title: string) => void;
-}
+export type FormState = {
+  name: string;
+};
