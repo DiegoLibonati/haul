@@ -14,23 +14,23 @@ export const ItemGrocery = ({
   editItem,
 }: ItemGroceryProps): JSX.Element => {
   return (
-    <article className="grocery_item">
+    <article className="item">
       <h2>{title}</h2>
 
-      <div className="grocery_item_btns">
+      <div className="item__btns">
         <button
           type="button"
           aria-label="edit item"
           onClick={() => editItem(id, title)}
         >
-          <BsPencil className="btn-edit"></BsPencil>
+          <BsPencil className="item__btn-edit"></BsPencil>
         </button>
         <button
           type="button"
           aria-label="remove item"
           onClick={() => removeItem(id)}
         >
-          <BsTrash className="btn-delete"></BsTrash>
+          <BsTrash className="item__btn-delete"></BsTrash>
         </button>
       </div>
     </article>

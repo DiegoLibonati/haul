@@ -5,11 +5,6 @@ import { Item } from "./entities/entities";
 
 import App from "./App";
 
-const item: Item = {
-  id: "123",
-  title: "title",
-};
-
 type RenderComponent = {
   container: HTMLElement;
 };
@@ -20,185 +15,206 @@ const renderComponent = (): RenderComponent => {
   return { container: container };
 };
 
-test("It must render the main container of the APP.", () => {
-  renderComponent();
+describe("App.ts", () => {
+  describe("General Tests.", () => {
+    const item: Item = {
+      id: "123",
+      title: "title",
+    };
 
-  const main = screen.getByRole("main");
+    test("It must render the main container of the APP.", () => {
+      renderComponent();
 
-  expect(main).toBeInTheDocument();
-  expect(main).toHaveClass("grocery_container");
-});
+      const main = screen.getByRole("main");
 
-test("It must render the title of the APP.", () => {
-  renderComponent();
+      expect(main).toBeInTheDocument();
+      expect(main).toHaveClass("main__app");
+    });
 
-  const heading = screen.getByRole("heading", { name: /grocery bud/i });
+    test("It must render the title of the APP.", () => {
+      renderComponent();
 
-  expect(heading).toBeInTheDocument();
-});
+      const heading = screen.getByRole("heading", { name: /grocery bud/i });
 
-test("It should not render the alert as it has no content.", () => {
-  renderComponent();
+      expect(heading).toBeInTheDocument();
+    });
 
-  const headings = screen.getAllByRole("heading");
-  const alert = headings.find((heading) => heading.classList.contains("alert"));
+    test("It should not render the alert as it has no content.", () => {
+      renderComponent();
 
-  expect(alert).toBeUndefined();
-});
+      const headings = screen.getAllByRole("heading");
+      const alert = headings.find((heading) =>
+        heading.classList.contains("alert")
+      );
 
-test("It must render the input name and the submit button.", () => {
-  renderComponent();
+      expect(alert).toBeUndefined();
+    });
 
-  const input = screen.getByRole("textbox");
-  const btnSubmit = screen.getByRole("button", { name: /submit/i });
+    test("It must render the input name and the submit button.", () => {
+      renderComponent();
 
-  expect(input).toBeInTheDocument();
-  expect(btnSubmit).toBeInTheDocument();
-  expect(btnSubmit).toHaveTextContent("SUBMIT");
-});
+      const input = screen.getByRole("textbox");
+      const btnSubmit = screen.getByRole("button", { name: /submit/i });
 
-test("A new item should be rendered when it is added to the list, and the 'clear items' button should appear.", async () => {
-  const { container } = renderComponent();
+      expect(input).toBeInTheDocument();
+      expect(btnSubmit).toBeInTheDocument();
+      expect(btnSubmit).toHaveTextContent("SUBMIT");
+    });
 
-  const input = screen.getByRole("textbox");
-  const btnSubmit = screen.getByRole("button", { name: /submit/i });
-  // eslint-disable-next-line
-  const itemsContainer = container.querySelector(".grocery_items_container");
-  const btnClearItems = screen.queryByRole("button", { name: /clear items/i });
+    test("A new item should be rendered when it is added to the list, and the 'clear items' button should appear.", async () => {
+      const { container } = renderComponent();
 
-  expect(input).toBeInTheDocument();
-  expect(btnSubmit).toBeInTheDocument();
-  expect(btnSubmit).toHaveTextContent("SUBMIT");
-  // eslint-disable-next-line
-  expect(itemsContainer?.children).toHaveLength(0);
-  expect(btnClearItems).not.toBeInTheDocument();
+      const input = screen.getByRole("textbox");
+      const btnSubmit = screen.getByRole("button", { name: /submit/i });
+      // eslint-disable-next-line
+      const itemsContainer = container.querySelector(".items");
+      const btnClearItems = screen.queryByRole("button", {
+        name: /clear items/i,
+      });
 
-  await user.clear(input);
-  await user.click(input);
-  await user.keyboard(item.title);
+      expect(input).toBeInTheDocument();
+      expect(btnSubmit).toBeInTheDocument();
+      expect(btnSubmit).toHaveTextContent("SUBMIT");
+      // eslint-disable-next-line
+      expect(itemsContainer?.children).toHaveLength(0);
+      expect(btnClearItems).not.toBeInTheDocument();
 
-  await user.click(btnSubmit);
+      await user.clear(input);
+      await user.click(input);
+      await user.keyboard(item.title);
 
-  // Items + Button
-  // eslint-disable-next-line
-  expect(itemsContainer?.children).toHaveLength(2);
-  expect(
-    screen.getByRole("button", { name: /clear items/i })
-  ).toBeInTheDocument();
-});
+      await user.click(btnSubmit);
 
-test("It must edit an item in the list.", async () => {
-  const newTitle = "1234567890";
+      // Items + Button
+      // eslint-disable-next-line
+      expect(itemsContainer?.children).toHaveLength(2);
+      expect(
+        screen.getByRole("button", { name: /clear items/i })
+      ).toBeInTheDocument();
+    });
 
-  const { container } = renderComponent();
+    test("It must edit an item in the list.", async () => {
+      const newTitle = "1234567890";
 
-  const input = screen.getByRole("textbox");
-  const btnSubmit = screen.getByRole("button", { name: /submit/i });
-  // eslint-disable-next-line
-  const itemsContainer = container.querySelector(".grocery_items_container");
-  const btnClearItems = screen.queryByRole("button", { name: /clear items/i });
+      const { container } = renderComponent();
 
-  expect(input).toBeInTheDocument();
-  expect(btnSubmit).toBeInTheDocument();
-  expect(btnSubmit).toHaveTextContent("SUBMIT");
-  // eslint-disable-next-line
-  expect(itemsContainer?.children).toHaveLength(0);
-  expect(btnClearItems).not.toBeInTheDocument();
+      const input = screen.getByRole("textbox");
+      const btnSubmit = screen.getByRole("button", { name: /submit/i });
+      // eslint-disable-next-line
+      const itemsContainer = container.querySelector(".items");
+      const btnClearItems = screen.queryByRole("button", {
+        name: /clear items/i,
+      });
 
-  await user.clear(input);
-  await user.click(input);
-  await user.keyboard(item.title);
+      expect(input).toBeInTheDocument();
+      expect(btnSubmit).toBeInTheDocument();
+      expect(btnSubmit).toHaveTextContent("SUBMIT");
+      // eslint-disable-next-line
+      expect(itemsContainer?.children).toHaveLength(0);
+      expect(btnClearItems).not.toBeInTheDocument();
 
-  await user.click(btnSubmit);
+      await user.clear(input);
+      await user.click(input);
+      await user.keyboard(item.title);
 
-  const btnEdit = screen.getByRole("button", { name: /edit item/i });
+      await user.click(btnSubmit);
 
-  expect(btnEdit).toBeInTheDocument();
+      const btnEdit = screen.getByRole("button", { name: /edit item/i });
 
-  await user.click(btnEdit);
+      expect(btnEdit).toBeInTheDocument();
 
-  expect(btnSubmit).toHaveTextContent("EDIT");
+      await user.click(btnEdit);
 
-  await user.clear(input);
-  await user.click(input);
-  await user.keyboard(newTitle);
+      expect(btnSubmit).toHaveTextContent("EDIT");
 
-  await user.click(btnSubmit);
+      await user.clear(input);
+      await user.click(input);
+      await user.keyboard(newTitle);
 
-  const heading = screen.getByRole("heading", { name: newTitle });
+      await user.click(btnSubmit);
 
-  expect(heading).toBeInTheDocument();
-});
+      const heading = screen.getByRole("heading", { name: newTitle });
 
-test("It must clear all items by clicking 'clear items'.", async () => {
-  const { container } = renderComponent();
+      expect(heading).toBeInTheDocument();
+    });
 
-  const input = screen.getByRole("textbox");
-  const btnSubmit = screen.getByRole("button", { name: /submit/i });
-  // eslint-disable-next-line
-  const itemsContainer = container.querySelector(".grocery_items_container");
-  const btnClearItems = screen.queryByRole("button", { name: /clear items/i });
+    test("It must clear all items by clicking 'clear items'.", async () => {
+      const { container } = renderComponent();
 
-  expect(input).toBeInTheDocument();
-  expect(btnSubmit).toBeInTheDocument();
-  expect(btnSubmit).toHaveTextContent("SUBMIT");
-  // eslint-disable-next-line
-  expect(itemsContainer?.children).toHaveLength(0);
-  expect(btnClearItems).not.toBeInTheDocument();
+      const input = screen.getByRole("textbox");
+      const btnSubmit = screen.getByRole("button", { name: /submit/i });
+      // eslint-disable-next-line
+      const itemsContainer = container.querySelector(".items");
+      const btnClearItems = screen.queryByRole("button", {
+        name: /clear items/i,
+      });
 
-  await user.clear(input);
-  await user.click(input);
-  await user.keyboard(item.title);
+      expect(input).toBeInTheDocument();
+      expect(btnSubmit).toBeInTheDocument();
+      expect(btnSubmit).toHaveTextContent("SUBMIT");
+      // eslint-disable-next-line
+      expect(itemsContainer?.children).toHaveLength(0);
+      expect(btnClearItems).not.toBeInTheDocument();
 
-  await user.click(btnSubmit);
+      await user.clear(input);
+      await user.click(input);
+      await user.keyboard(item.title);
 
-  const btnClearItemsShowing = screen.getByRole("button", {
-    name: /clear items/i,
+      await user.click(btnSubmit);
+
+      const btnClearItemsShowing = screen.getByRole("button", {
+        name: /clear items/i,
+      });
+
+      // eslint-disable-next-line
+      expect(itemsContainer?.children).toHaveLength(2);
+      expect(btnClearItemsShowing).toBeInTheDocument();
+
+      await user.click(btnClearItemsShowing);
+
+      // eslint-disable-next-line
+      expect(itemsContainer?.children).toHaveLength(0);
+      expect(btnClearItemsShowing).not.toBeInTheDocument();
+    });
+
+    test("It must delete an item when you click on its delete button.", async () => {
+      const { container } = renderComponent();
+
+      const input = screen.getByRole("textbox");
+      const btnSubmit = screen.getByRole("button", { name: /submit/i });
+      // eslint-disable-next-line
+      const itemsContainer = container.querySelector(".items");
+      const btnClearItems = screen.queryByRole("button", {
+        name: /clear items/i,
+      });
+
+      expect(input).toBeInTheDocument();
+      expect(btnSubmit).toBeInTheDocument();
+      expect(btnSubmit).toHaveTextContent("SUBMIT");
+      // eslint-disable-next-line
+      expect(itemsContainer?.children).toHaveLength(0);
+      expect(btnClearItems).not.toBeInTheDocument();
+
+      await user.clear(input);
+      await user.click(input);
+      await user.keyboard(item.title);
+
+      await user.click(btnSubmit);
+
+      // eslint-disable-next-line
+      expect(itemsContainer?.children).toHaveLength(2);
+
+      const btnDeleteItem = screen.getByRole("button", {
+        name: /remove item/i,
+      });
+
+      expect(btnDeleteItem).toBeInTheDocument();
+
+      await user.click(btnDeleteItem);
+
+      // eslint-disable-next-line
+      expect(itemsContainer?.children).toHaveLength(0);
+      expect(btnClearItems).not.toBeInTheDocument();
+    });
   });
-
-  // eslint-disable-next-line
-  expect(itemsContainer?.children).toHaveLength(2);
-  expect(btnClearItemsShowing).toBeInTheDocument();
-
-  await user.click(btnClearItemsShowing);
-
-  // eslint-disable-next-line
-  expect(itemsContainer?.children).toHaveLength(0);
-  expect(btnClearItemsShowing).not.toBeInTheDocument();
-});
-
-test("It must delete an item when you click on its delete button.", async () => {
-  const { container } = renderComponent();
-
-  const input = screen.getByRole("textbox");
-  const btnSubmit = screen.getByRole("button", { name: /submit/i });
-  // eslint-disable-next-line
-  const itemsContainer = container.querySelector(".grocery_items_container");
-  const btnClearItems = screen.queryByRole("button", { name: /clear items/i });
-
-  expect(input).toBeInTheDocument();
-  expect(btnSubmit).toBeInTheDocument();
-  expect(btnSubmit).toHaveTextContent("SUBMIT");
-  // eslint-disable-next-line
-  expect(itemsContainer?.children).toHaveLength(0);
-  expect(btnClearItems).not.toBeInTheDocument();
-
-  await user.clear(input);
-  await user.click(input);
-  await user.keyboard(item.title);
-
-  await user.click(btnSubmit);
-
-  // eslint-disable-next-line
-  expect(itemsContainer?.children).toHaveLength(2);
-
-  const btnDeleteItem = screen.getByRole("button", { name: /remove item/i });
-
-  expect(btnDeleteItem).toBeInTheDocument();
-
-  await user.click(btnDeleteItem);
-
-  // eslint-disable-next-line
-  expect(itemsContainer?.children).toHaveLength(0);
-  expect(btnClearItems).not.toBeInTheDocument();
 });

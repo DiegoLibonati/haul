@@ -98,13 +98,15 @@ function App(): JSX.Element {
   }, [items]);
 
   return (
-    <main className="grocery_container">
-      <section className="grocery_header">
+    <main className="main__app">
+      <section className="header">
         <h2>Grocery Bud</h2>
 
-        {alert.show && <h3 className={`alert ${alert.type}`}>{alert.message}</h3>}
+        {alert.show && (
+          <h3 className={`alert ${alert.type}`}>{alert.message}</h3>
+        )}
 
-        <form className="grocery_form" onSubmit={handleSubmit}>
+        <form className="header__form" onSubmit={handleSubmit}>
           <input
             id="name"
             type="text"
@@ -119,7 +121,7 @@ function App(): JSX.Element {
         </form>
       </section>
 
-      <section className="grocery_items_container">
+      <section className="items">
         {items?.map((item) => (
           <ItemGrocery
             key={item.id}

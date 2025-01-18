@@ -1,29 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap");
-
-* {
-  font-family: Rajdhani, Arial, sans-serif;
-  padding: 0;
-  margin: 0;
-  font-size: 10px;
-  box-sizing: border-box;
-}
-
-img {
-  max-width: 100%;
-}
-
-body {
-  height: 100%;
-  width: 100%;
-  background-color: #cecece;
-}
-
-button {
-  background: none;
-  border: none;
-}
-
-.grocery_container {
+.main__app {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +7,7 @@ button {
   height: 100vh;
 }
 
-.grocery_header {
+.header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,16 +16,16 @@ button {
   height: auto;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  background-color: #fff;
+  background-color: var(--white-color);
 }
 
-.grocery_header h2 {
+.header h2 {
   padding: 1rem;
   font-size: 3rem;
   text-align: center;
 }
 
-.grocery_form {
+.header__form {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,31 +35,31 @@ button {
   padding: 1rem;
 }
 
-.grocery_form input {
-  width: 20rem;
+.header__form input {
+  width: 70%;
   font-size: 2rem;
   padding: 0.2rem;
   padding-left: 0.5rem;
   outline: none;
   border: none;
-  background-color: #cecece;
+  background-color: var(--primary-color);
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
 }
 
-.grocery_form button {
-  width: 8rem;
+.header__form button {
+  width: 30%;
   padding: 0.2rem;
   font-size: 2rem;
-  background-color: #09f;
+  background-color: var(--secondary-color);
   border: none;
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
-  color: #fff;
+  color: var(--white-color);
 }
 
-.grocery_items_container {
-  background-color: #fff;
+.items {
+  background-color: var(--white-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,28 +71,28 @@ button {
   border-bottom-right-radius: 1rem;
 }
 
-.grocery_item {
+.item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-flow: row wrap;
   padding: 0.2rem;
-  width: 28rem;
+  width: 100%;
   margin-bottom: 1rem;
 }
 
-.btn-edit {
+.item__btn-edit {
   font-size: 1.5rem;
-  color: #09f;
+  color: var(--secondary-color);
 }
 
-.btn-delete {
-  color: #ff0000;
+.item__btn-delete {
+  color: var(--red-color);
   font-size: 1.5rem;
   margin-left: 2rem;
 }
 
-.grocery_item h2 {
+.item h2 {
   font-size: 1.5rem;
 }
 
@@ -125,66 +100,58 @@ button {
   font-size: 2rem;
   background: none;
   border: none;
-  color: #ff0000;
+  color: var(--red-color);
   font-weight: 600;
   margin-bottom: 1rem;
 }
 
 .error {
   font-size: 2rem;
-  background-color: #ff0000;
+  background-color: var(--red-color);
   width: 100%;
   text-align: center;
-  color: #fff;
+  color: var(--white-color);
   padding: 0.2rem;
 }
 
 .success {
   font-size: 2rem;
-  background-color: #008000;
+  background-color: var(--green-color);
   width: 100%;
   text-align: center;
-  color: #fff;
+  color: var(--white-color);
   padding: 0.2rem;
 }
 
 @media only screen and (min-width: 768px) {
-  .grocery_header {
+  .header {
     width: 54rem;
     padding: 0 2rem 0 2rem;
   }
 
-  .grocery_items_container {
+  .items {
     width: 54rem;
     padding: 0 2rem 0 2rem;
   }
 
-  .grocery_header h2 {
+  .header h2 {
     font-size: 5rem;
   }
 
-  .grocery_form input {
-    width: 40rem;
-  }
-
-  .grocery_form button {
-    width: 8rem;
-  }
-
-  .grocery_item {
+  .item {
     width: 48rem;
     margin-top: 1rem;
   }
 
-  .btn-edit {
+  .item__btn-edit {
     font-size: 2rem;
   }
 
-  .btn-delete {
+  .item__btn-delete {
     font-size: 2rem;
   }
 
-  .grocery_item h2 {
+  .item h2 {
     font-size: 2rem;
   }
 }

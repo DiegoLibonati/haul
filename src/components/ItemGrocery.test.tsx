@@ -3,9 +3,6 @@ import user from "@testing-library/user-event";
 
 import { ItemGrocery } from "./ItemGrocery";
 
-const mockRemoveItem = jest.fn();
-const mockEditItem = jest.fn();
-
 type RenderComponent = {
   props: {
     id: string;
@@ -17,6 +14,9 @@ type RenderComponent = {
 };
 
 const renderComponent = (): RenderComponent => {
+  const mockRemoveItem = jest.fn();
+  const mockEditItem = jest.fn();
+
   const props = {
     id: "id pepe",
     title: "title pepe",
@@ -39,36 +39,42 @@ const renderComponent = (): RenderComponent => {
   };
 };
 
-test("It should render the article title.", () => {
-  const { props } = renderComponent();
+describe("ItemGrocery.txt", () => {
+  describe("General Tests.", () => {
+    test("It should render the article title.", () => {
+      const { props } = renderComponent();
 
-  const title = screen.getByRole("heading", { name: props.title });
+      const title = screen.getByRole("heading", { name: props.title });
 
-  expect(title).toBeInTheDocument();
-});
+      expect(title).toBeInTheDocument();
+    });
 
-test("It must render the edit button and execute its function.", async () => {
-  const { props } = renderComponent();
+    test("It must render the edit button and execute its function.", async () => {
+      const { props } = renderComponent();
 
-  const btnEditItem = screen.getByRole("button", { name: /edit item/i });
+      const btnEditItem = screen.getByRole("button", { name: /edit item/i });
 
-  expect(btnEditItem).toBeInTheDocument();
+      expect(btnEditItem).toBeInTheDocument();
 
-  await user.click(btnEditItem);
+      await user.click(btnEditItem);
 
-  expect(mockEditItem).toHaveBeenCalledTimes(1);
-  expect(mockEditItem).toHaveBeenCalledWith(props.id, props.title);
-});
+      expect(props.editItem).toHaveBeenCalledTimes(1);
+      expect(props.editItem).toHaveBeenCalledWith(props.id, props.title);
+    });
 
-test("It must render the remove button and execute its function.", async () => {
-  const { props } = renderComponent();
+    test("It must render the remove button and execute its function.", async () => {
+      const { props } = renderComponent();
 
-  const btnRemoveItem = screen.getByRole("button", { name: /remove item/i });
+      const btnRemoveItem = screen.getByRole("button", {
+        name: /remove item/i,
+      });
 
-  expect(btnRemoveItem).toBeInTheDocument();
+      expect(btnRemoveItem).toBeInTheDocument();
 
-  await user.click(btnRemoveItem);
+      await user.click(btnRemoveItem);
 
-  expect(mockRemoveItem).toHaveBeenCalledTimes(1);
-  expect(mockRemoveItem).toHaveBeenCalledWith(props.id);
+      expect(props.removeItem).toHaveBeenCalledTimes(1);
+      expect(props.removeItem).toHaveBeenCalledWith(props.id);
+    });
+  });
 });
