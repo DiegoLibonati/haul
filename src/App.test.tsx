@@ -28,7 +28,7 @@ describe("App.ts", () => {
       const main = screen.getByRole("main");
 
       expect(main).toBeInTheDocument();
-      expect(main).toHaveClass("main__app");
+      expect(main).toHaveClass("main-app");
     });
 
     test("It must render the title of the APP.", () => {

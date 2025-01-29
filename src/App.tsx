@@ -42,11 +42,19 @@ function App(): JSX.Element {
     const idEdit = edit.idEdit;
 
     if (!name)
-      return setAlert({ type: "error", message: "Invalid entry", show: true });
+      return setAlert({
+        type: "error",
+        message: "Invalid entry",
+        show: true,
+      });
 
     // Editing
     if (isEditing) {
-      setAlert({ type: "success", message: "Edit successfully", show: true });
+      setAlert({
+        type: "success",
+        message: "Edit successfully",
+        show: true,
+      });
 
       const itemsEdited = items.map((item) => {
         if (item.id === idEdit) item.title = name;
@@ -61,7 +69,11 @@ function App(): JSX.Element {
     }
 
     // New Item
-    setAlert({ type: "success", message: "Added successfully", show: true });
+    setAlert({
+      type: "success",
+      message: "Added successfully",
+      show: true,
+    });
 
     const id = new Date().getTime().toString();
     const newItem = { id: id, title: name };
@@ -98,24 +110,31 @@ function App(): JSX.Element {
   }, [items]);
 
   return (
-    <main className="main__app">
-      <section className="header">
-        <h2>Grocery Bud</h2>
+    <main className="main-app">
+      <section className="header-wrapper">
+        <h2 className="header-wrapper__title">Grocery Bud</h2>
 
         {alert.show && (
-          <h3 className={`alert ${alert.type}`}>{alert.message}</h3>
+          <h3 className={`header-wrapper__alert header-wrapper__alert--${alert.type}`}>
+            {alert.message}
+          </h3>
         )}
 
-        <form className="header__form" onSubmit={handleSubmit}>
+        <form className="header-wrapper__form" onSubmit={handleSubmit}>
           <input
             id="name"
             type="text"
             value={form.name}
             name="name"
             placeholder="Build a desk"
+            className="header-wrapper__form-input"
             onChange={onInputChange}
           ></input>
-          <button type="submit" aria-label="submit">
+          <button
+            type="submit"
+            aria-label="submit"
+            className="header-wrapper__form-submit"
+          >
             {edit.isEditing ? "EDIT" : "SUBMIT"}
           </button>
         </form>
@@ -133,7 +152,7 @@ function App(): JSX.Element {
         ))}
         {items?.length !== 0 && (
           <button
-            className="clear-items"
+            className="items__btn-clear-items"
             aria-label="clear items"
             onClick={handleClearItems}
           >

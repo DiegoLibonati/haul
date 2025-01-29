@@ -1,0 +1,43 @@
+.item-grocery {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: row wrap;
+  padding: 0.2rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.item-grocery__title {
+  font-size: 1.5rem;
+}
+
+.item-grocery__btn-edit-icon {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+}
+
+.item-grocery__btn-remove-icon {
+  color: var(--red-color);
+  font-size: 1.5rem;
+  margin-left: 2rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .item-grocery {
+    width: 48rem;
+    margin-top: 1rem;
+  }
+
+  .item-grocery__title {
+    font-size: 2rem;
+  }
+
+  .item-grocery__btn-edit-icon {
+    font-size: 2rem;
+  }
+
+  .item-grocery__btn-remove-icon {
+    font-size: 2rem;
+  }
+}
