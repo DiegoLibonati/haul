@@ -4,9 +4,9 @@ import { Alert, Item, EditState, FormState } from "./entities/entities";
 
 import { ItemGrocery } from "./components/ItemGrocery";
 
-import { getItemsFromLocalStorage } from "./helpers/getItemsFromLocalStorage.ts";
-import { setLocalStorage } from "./helpers/setLocalStorage.ts";
-import { LOCAL_STORAGE_KEY_ITEMS } from "./constants/config.ts";
+import { getItemsFromLocalStorage } from "./helpers/getItemsFromLocalStorage";
+import { setLocalStorage } from "./helpers/setLocalStorage";
+import { LOCAL_STORAGE_KEY_ITEMS } from "./constants/config";
 
 import "./App.css";
 
