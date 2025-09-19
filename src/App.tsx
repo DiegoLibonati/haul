@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-import { Alert, Item, EditState, FormState } from "./entities/entities";
+import { Alert, Item, EditState, FormState } from "@src/entities/entities";
 
-import { ItemGrocery } from "./components/ItemGrocery";
+import { ItemGrocery } from "@src/components/ItemGrocery";
 
-import { getItemsFromLocalStorage } from "./helpers/getItemsFromLocalStorage";
-import { setLocalStorage } from "./helpers/setLocalStorage";
-import { LOCAL_STORAGE_KEY_ITEMS } from "./constants/config";
+import { getItemsFromLocalStorage } from "@src/helpers/getItemsFromLocalStorage";
+import { setLocalStorage } from "@src/helpers/setLocalStorage";
+import { LOCAL_STORAGE_KEY_ITEMS } from "@src/constants/config";
 
 import "./App.css";
 

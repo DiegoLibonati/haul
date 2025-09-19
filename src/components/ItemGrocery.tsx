@@ -1,6 +1,6 @@
 import { BsTrash, BsPencil } from "react-icons/bs";
 
-import "./ItemGrocery.css";
+import "@src/components/ItemGrocery.css";
 
 interface ItemGroceryProps {
   id: string;

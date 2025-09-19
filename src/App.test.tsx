@@ -1,9 +1,9 @@
 import { screen, render } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
-import { Item } from "./entities/entities";
+import { Item } from "@src/entities/entities";
 
-import App from "./App";
+import App from "@src/App";
 
 type RenderComponent = {
   container: HTMLElement;
