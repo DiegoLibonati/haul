@@ -22,6 +22,7 @@ I made a web application that serves as a notepad of items in a list. In this li
 1. React JS
 2. Typescript
 3. CSS3
+4. Vite
 
 ## Libraries used
 
