@@ -1,8 +1,8 @@
-import { Item } from "@src/entities/entities";
+import { Item } from "@src/entities/app";
 
 import { getLocalStorage } from "@src/helpers/getLocalStorage";
 
-import { LOCAL_STORAGE_KEY_ITEMS } from "@src/constants/config";
+import { LOCAL_STORAGE_KEY_ITEMS } from "@src/constants/vars";
 
 export const getItemsFromLocalStorage = (): Item[] => {
   const items = getLocalStorage<Item[]>(LOCAL_STORAGE_KEY_ITEMS);

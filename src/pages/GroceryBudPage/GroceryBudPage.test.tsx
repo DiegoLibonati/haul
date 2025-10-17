@@ -1,21 +1,21 @@
 import { screen, render } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
-import { Item } from "@src/entities/entities";
+import { Item } from "@src/entities/app";
 
-import App from "@src/App";
+import { GroceryBudPage } from "@src/pages/GroceryBudPage/GroceryBudPage";
 
 type RenderComponent = {
   container: HTMLElement;
 };
 
 const renderComponent = (): RenderComponent => {
-  const { container } = render(<App></App>);
+  const { container } = render(<GroceryBudPage></GroceryBudPage>);
 
   return { container: container };
 };
 
-describe("App.ts", () => {
+describe("GroceryBudPage.ts", () => {
   describe("General Tests.", () => {
     const item: Item = {
       id: "123",
@@ -28,7 +28,7 @@ describe("App.ts", () => {
       const main = screen.getByRole("main");
 
       expect(main).toBeInTheDocument();
-      expect(main).toHaveClass("main-app");
+      expect(main).toHaveClass("grocery-bud-page");
     });
 
     test("It must render the title of the APP.", () => {
@@ -66,7 +66,7 @@ describe("App.ts", () => {
 
       const input = screen.getByRole("textbox");
       const btnSubmit = screen.getByRole("button", { name: /submit/i });
-      // eslint-disable-next-line
+
       const itemsContainer = container.querySelector(".items");
       const btnClearItems = screen.queryByRole("button", {
         name: /clear items/i,
@@ -75,7 +75,6 @@ describe("App.ts", () => {
       expect(input).toBeInTheDocument();
       expect(btnSubmit).toBeInTheDocument();
       expect(btnSubmit).toHaveTextContent("SUBMIT");
-      // eslint-disable-next-line
       expect(itemsContainer?.children).toHaveLength(0);
       expect(btnClearItems).not.toBeInTheDocument();
 
@@ -85,8 +84,6 @@ describe("App.ts", () => {
 
       await user.click(btnSubmit);
 
-      // Items + Button
-      // eslint-disable-next-line
       expect(itemsContainer?.children).toHaveLength(2);
       expect(
         screen.getByRole("button", { name: /clear items/i })
@@ -100,7 +97,6 @@ describe("App.ts", () => {
 
       const input = screen.getByRole("textbox");
       const btnSubmit = screen.getByRole("button", { name: /submit/i });
-      // eslint-disable-next-line
       const itemsContainer = container.querySelector(".items");
       const btnClearItems = screen.queryByRole("button", {
         name: /clear items/i,
@@ -109,7 +105,6 @@ describe("App.ts", () => {
       expect(input).toBeInTheDocument();
       expect(btnSubmit).toBeInTheDocument();
       expect(btnSubmit).toHaveTextContent("SUBMIT");
-      // eslint-disable-next-line
       expect(itemsContainer?.children).toHaveLength(0);
       expect(btnClearItems).not.toBeInTheDocument();
 
@@ -143,7 +138,6 @@ describe("App.ts", () => {
 
       const input = screen.getByRole("textbox");
       const btnSubmit = screen.getByRole("button", { name: /submit/i });
-      // eslint-disable-next-line
       const itemsContainer = container.querySelector(".items");
       const btnClearItems = screen.queryByRole("button", {
         name: /clear items/i,
@@ -152,7 +146,6 @@ describe("App.ts", () => {
       expect(input).toBeInTheDocument();
       expect(btnSubmit).toBeInTheDocument();
       expect(btnSubmit).toHaveTextContent("SUBMIT");
-      // eslint-disable-next-line
       expect(itemsContainer?.children).toHaveLength(0);
       expect(btnClearItems).not.toBeInTheDocument();
 
@@ -166,13 +159,11 @@ describe("App.ts", () => {
         name: /clear items/i,
       });
 
-      // eslint-disable-next-line
       expect(itemsContainer?.children).toHaveLength(2);
       expect(btnClearItemsShowing).toBeInTheDocument();
 
       await user.click(btnClearItemsShowing);
 
-      // eslint-disable-next-line
       expect(itemsContainer?.children).toHaveLength(0);
       expect(btnClearItemsShowing).not.toBeInTheDocument();
     });
@@ -182,7 +173,6 @@ describe("App.ts", () => {
 
       const input = screen.getByRole("textbox");
       const btnSubmit = screen.getByRole("button", { name: /submit/i });
-      // eslint-disable-next-line
       const itemsContainer = container.querySelector(".items");
       const btnClearItems = screen.queryByRole("button", {
         name: /clear items/i,
@@ -191,7 +181,6 @@ describe("App.ts", () => {
       expect(input).toBeInTheDocument();
       expect(btnSubmit).toBeInTheDocument();
       expect(btnSubmit).toHaveTextContent("SUBMIT");
-      // eslint-disable-next-line
       expect(itemsContainer?.children).toHaveLength(0);
       expect(btnClearItems).not.toBeInTheDocument();
 
@@ -201,7 +190,6 @@ describe("App.ts", () => {
 
       await user.click(btnSubmit);
 
-      // eslint-disable-next-line
       expect(itemsContainer?.children).toHaveLength(2);
 
       const btnDeleteItem = screen.getByRole("button", {
@@ -212,7 +200,6 @@ describe("App.ts", () => {
 
       await user.click(btnDeleteItem);
 
-      // eslint-disable-next-line
       expect(itemsContainer?.children).toHaveLength(0);
       expect(btnClearItems).not.toBeInTheDocument();
     });

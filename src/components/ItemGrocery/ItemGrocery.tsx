@@ -1,13 +1,8 @@
 import { BsTrash, BsPencil } from "react-icons/bs";
 
-import "@src/components/ItemGrocery.css";
+import { ItemGroceryProps } from "@src/entities/props";
 
-interface ItemGroceryProps {
-  id: string;
-  title: string;
-  removeItem: (id: string) => void;
-  editItem: (id: string, title: string) => void;
-}
+import "@src/components/ItemGrocery/ItemGrocery.css";
 
 export const ItemGrocery = ({
   id,

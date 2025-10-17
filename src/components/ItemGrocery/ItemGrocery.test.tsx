@@ -1,27 +1,27 @@
 import { screen, render } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
-import { ItemGrocery } from "@src/components/ItemGrocery";
+import { ItemGroceryProps } from "@src/entities/props";
+
+import { ItemGrocery } from "@src/components/ItemGrocery/ItemGrocery";
 
 type RenderComponent = {
   props: {
-    id: string;
-    title: string;
     removeItem: jest.Mock;
     editItem: jest.Mock;
-  };
+  } & ItemGroceryProps;
   container: HTMLElement;
 };
 
 const renderComponent = (): RenderComponent => {
-  const mockRemoveItem = jest.fn();
-  const mockEditItem = jest.fn();
+  const removeItem = jest.fn();
+  const editItem = jest.fn();
 
   const props = {
     id: "id pepe",
     title: "title pepe",
-    removeItem: mockRemoveItem,
-    editItem: mockEditItem,
+    removeItem: removeItem,
+    editItem: editItem,
   };
 
   const { container } = render(
