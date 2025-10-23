@@ -67,7 +67,7 @@ describe("GroceryBudPage.ts", () => {
       const input = screen.getByRole("textbox");
       const btnSubmit = screen.getByRole("button", { name: /submit/i });
 
-      const itemsContainer = container.querySelector(".items");
+      const itemsContainer = container.querySelector<HTMLElement>(".items");
       const btnClearItems = screen.queryByRole("button", {
         name: /clear items/i,
       });
@@ -97,7 +97,7 @@ describe("GroceryBudPage.ts", () => {
 
       const input = screen.getByRole("textbox");
       const btnSubmit = screen.getByRole("button", { name: /submit/i });
-      const itemsContainer = container.querySelector(".items");
+      const itemsContainer = container.querySelector<HTMLElement>(".items");
       const btnClearItems = screen.queryByRole("button", {
         name: /clear items/i,
       });
@@ -138,7 +138,7 @@ describe("GroceryBudPage.ts", () => {
 
       const input = screen.getByRole("textbox");
       const btnSubmit = screen.getByRole("button", { name: /submit/i });
-      const itemsContainer = container.querySelector(".items");
+      const itemsContainer = container.querySelector<HTMLElement>(".items");
       const btnClearItems = screen.queryByRole("button", {
         name: /clear items/i,
       });
@@ -173,7 +173,7 @@ describe("GroceryBudPage.ts", () => {
 
       const input = screen.getByRole("textbox");
       const btnSubmit = screen.getByRole("button", { name: /submit/i });
-      const itemsContainer = container.querySelector(".items");
+      const itemsContainer = container.querySelector<HTMLElement>(".items");
       const btnClearItems = screen.queryByRole("button", {
         name: /clear items/i,
       });
