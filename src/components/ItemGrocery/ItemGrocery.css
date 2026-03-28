@@ -12,13 +12,18 @@
   font-size: 1.5rem;
 }
 
+.item-grocery__btn {
+  background-color: transparent;
+  border: none;
+}
+
 .item-grocery__btn-edit-icon {
   font-size: 1.5rem;
-  color: var(--secondary-color);
+  color: var(--color-secondary);
 }
 
 .item-grocery__btn-remove-icon {
-  color: var(--red-color);
+  color: var(--color-red);
   font-size: 1.5rem;
   margin-left: 2rem;
 }

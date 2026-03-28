@@ -1,6 +1,6 @@
-import { GroceryBudPage } from "@src/pages/GroceryBudPage/GroceryBudPage";
+import GroceryBudPage from "@/pages/GroceryBudPage/GroceryBudPage";
 
-function App(): JSX.Element {
+function App() {
   return <GroceryBudPage></GroceryBudPage>;
 }
 

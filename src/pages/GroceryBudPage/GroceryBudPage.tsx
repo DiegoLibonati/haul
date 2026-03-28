@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 
-import { Alert, Item } from "@src/entities/app";
-import { EditState, FormState } from "@src/entities/states";
+import { Alert, Item } from "@/types/app";
+import { EditState, FormState } from "@/types/states";
 
-import { ItemGrocery } from "@src/components/ItemGrocery/ItemGrocery";
+import ItemGrocery from "@/components/ItemGrocery/ItemGrocery";
 
-import { getItemsFromLocalStorage } from "@src/helpers/getItemsFromLocalStorage";
-import { setLocalStorage } from "@src/helpers/setLocalStorage";
+import { getItemsFromLocalStorage } from "@/helpers/getItemsFromLocalStorage";
+import { setLocalStorage } from "@/helpers/setLocalStorage";
 
-import { LOCAL_STORAGE_KEY_ITEMS } from "@src/constants/vars";
+import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
 
-import "@src/pages/GroceryBudPage/GroceryBudPage.css";
+import "@/pages/GroceryBudPage/GroceryBudPage.css";
 
-export const GroceryBudPage = () => {
+const GroceryBudPage = () => {
   const [items, setItems] = useState<Item[]>(getItemsFromLocalStorage());
   const [edit, setEdit] = useState<EditState>({
     idEdit: "",
@@ -27,9 +27,7 @@ export const GroceryBudPage = () => {
     name: "",
   });
 
-  const onInputChange: React.ChangeEventHandler<HTMLInputElement> = ({
-    target,
-  }) => {
+  const onInputChange: React.ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const name = target.name;
     const value = target.value;
 
@@ -106,7 +104,7 @@ export const GroceryBudPage = () => {
   }, [alert.show]);
 
   useEffect(() => {
-    setLocalStorage<Item[]>(LOCAL_STORAGE_KEY_ITEMS, items);
+    setLocalStorage(LOCAL_STORAGE_KEY_ITEMS, items);
   }, [items]);
 
   return (
@@ -115,9 +113,7 @@ export const GroceryBudPage = () => {
         <h2 className="header-wrapper__title">Grocery Bud</h2>
 
         {alert.show && (
-          <h3
-            className={`header-wrapper__alert header-wrapper__alert--${alert.type}`}
-          >
+          <h3 className={`header-wrapper__alert header-wrapper__alert--${alert.type}`}>
             {alert.message}
           </h3>
         )}
@@ -132,11 +128,7 @@ export const GroceryBudPage = () => {
             className="header-wrapper__form-input"
             onChange={onInputChange}
           ></input>
-          <button
-            type="submit"
-            aria-label="submit"
-            className="header-wrapper__form-submit"
-          >
+          <button type="submit" aria-label="submit" className="header-wrapper__form-submit">
             {edit.isEditing ? "EDIT" : "SUBMIT"}
           </button>
         </form>
@@ -165,3 +157,5 @@ export const GroceryBudPage = () => {
     </main>
   );
 };
+
+export default GroceryBudPage;

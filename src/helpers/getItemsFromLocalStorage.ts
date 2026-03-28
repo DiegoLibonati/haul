@@ -1,11 +1,11 @@
-import { Item } from "@src/entities/app";
+import type { Item } from "@/types/app";
 
-import { getLocalStorage } from "@src/helpers/getLocalStorage";
+import { getLocalStorage } from "@/helpers/getLocalStorage";
 
-import { LOCAL_STORAGE_KEY_ITEMS } from "@src/constants/vars";
+import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
 
 export const getItemsFromLocalStorage = (): Item[] => {
-  const items = getLocalStorage<Item[]>(LOCAL_STORAGE_KEY_ITEMS);
+  const items = getLocalStorage(LOCAL_STORAGE_KEY_ITEMS) as Item[] | null;
 
-  return items ? items : [];
+  return items ?? [];
 };
