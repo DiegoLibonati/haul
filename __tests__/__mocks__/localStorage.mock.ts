@@ -1,4 +1,4 @@
-const storage = new Map<string, string>();
+export const storage = new Map<string, string>();
 
 export const mocksLocalStorage = {
   getItem: jest.fn((key: string): string | null => storage.get(key) ?? null),

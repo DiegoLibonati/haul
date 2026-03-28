@@ -3,13 +3,13 @@
   align-items: center;
   justify-content: space-between;
   flex-flow: row wrap;
-  padding: 0.2rem;
+  padding: 0.125rem;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 0.625rem;
 }
 
 .item-grocery__title {
-  font-size: 1.5rem;
+  font-size: 0.9375rem;
 }
 
 .item-grocery__btn {
@@ -18,31 +18,31 @@
 }
 
 .item-grocery__btn-edit-icon {
-  font-size: 1.5rem;
+  font-size: 0.9375rem;
   color: var(--color-secondary);
 }
 
 .item-grocery__btn-remove-icon {
   color: var(--color-red);
-  font-size: 1.5rem;
-  margin-left: 2rem;
+  font-size: 0.9375rem;
+  margin-left: 1.25rem;
 }
 
 @media only screen and (min-width: 768px) {
   .item-grocery {
-    width: 48rem;
-    margin-top: 1rem;
+    width: 30rem;
+    margin-top: 0.625rem;
   }
 
   .item-grocery__title {
-    font-size: 2rem;
+    font-size: 1.25rem;
   }
 
   .item-grocery__btn-edit-icon {
-    font-size: 2rem;
+    font-size: 1.25rem;
   }
 
   .item-grocery__btn-remove-icon {
-    font-size: 2rem;
+    font-size: 1.25rem;
   }
 }

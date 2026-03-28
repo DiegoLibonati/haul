@@ -12,7 +12,7 @@ const ItemGrocery = ({ id, title, removeItem, editItem }: ItemGroceryProps) => {
       <div className="item__btns">
         <button
           type="button"
-          aria-label="edit item"
+          aria-label={`Edit ${title}`}
           className="item-grocery__btn item-grocery__btn-edit"
           onClick={() => editItem(id, title)}
         >
@@ -20,7 +20,7 @@ const ItemGrocery = ({ id, title, removeItem, editItem }: ItemGroceryProps) => {
         </button>
         <button
           type="button"
-          aria-label="remove item"
+          aria-label={`Remove ${title}`}
           className="item-grocery__btn item-grocery__btn-remove"
           onClick={() => removeItem(id)}
         >

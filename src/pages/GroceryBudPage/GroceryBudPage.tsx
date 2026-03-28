@@ -125,10 +125,15 @@ const GroceryBudPage = () => {
             value={form.name}
             name="name"
             placeholder="Build a desk"
+            aria-label="Grocery item name"
             className="header-wrapper__form-input"
             onChange={onInputChange}
           ></input>
-          <button type="submit" aria-label="submit" className="header-wrapper__form-submit">
+          <button
+            type="submit"
+            aria-label={edit.isEditing ? "Edit item" : "Add item"}
+            className="header-wrapper__form-submit"
+          >
             {edit.isEditing ? "EDIT" : "SUBMIT"}
           </button>
         </form>
@@ -147,7 +152,7 @@ const GroceryBudPage = () => {
         {items?.length !== 0 && (
           <button
             className="items__btn-clear-items"
-            aria-label="clear items"
+            aria-label="Clear all items"
             onClick={handleClearItems}
           >
             Clear Items

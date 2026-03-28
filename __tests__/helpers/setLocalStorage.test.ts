@@ -7,17 +7,12 @@ describe("setLocalStorage", () => {
     mocksLocalStorage.clear();
   });
 
-  afterEach(() => {
-    mocksLocalStorage.clear();
-  });
-
   it("should store data in localStorage as JSON", () => {
     const testData = { title: "test", value: 123 };
 
     setLocalStorage("test-key", testData);
 
-    const stored = mocksLocalStorage.getItem("test-key");
-    expect(stored).toBe(JSON.stringify(testData));
+    expect(mocksLocalStorage.getItem("test-key")).toBe(JSON.stringify(testData));
   });
 
   it("should store arrays in localStorage", () => {
@@ -25,8 +20,7 @@ describe("setLocalStorage", () => {
 
     setLocalStorage("test-array", testArray);
 
-    const stored = mocksLocalStorage.getItem("test-array");
-    expect(stored).toBe(JSON.stringify(testArray));
+    expect(mocksLocalStorage.getItem("test-array")).toBe(JSON.stringify(testArray));
   });
 
   it("should store strings in localStorage", () => {
@@ -34,36 +28,31 @@ describe("setLocalStorage", () => {
 
     setLocalStorage("test-string", testString);
 
-    const stored = mocksLocalStorage.getItem("test-string");
-    expect(stored).toBe(JSON.stringify(testString));
+    expect(mocksLocalStorage.getItem("test-string")).toBe(JSON.stringify(testString));
   });
 
   it("should store boolean values in localStorage", () => {
     setLocalStorage("test-bool", true);
 
-    const stored = mocksLocalStorage.getItem("test-bool");
-    expect(stored).toBe(JSON.stringify(true));
+    expect(mocksLocalStorage.getItem("test-bool")).toBe(JSON.stringify(true));
   });
 
   it("should store number values in localStorage", () => {
     setLocalStorage("test-number", 42);
 
-    const stored = mocksLocalStorage.getItem("test-number");
-    expect(stored).toBe(JSON.stringify(42));
+    expect(mocksLocalStorage.getItem("test-number")).toBe(JSON.stringify(42));
   });
 
   it("should overwrite existing data", () => {
     setLocalStorage("test-key", "first");
     setLocalStorage("test-key", "second");
 
-    const stored = mocksLocalStorage.getItem("test-key");
-    expect(stored).toBe(JSON.stringify("second"));
+    expect(mocksLocalStorage.getItem("test-key")).toBe(JSON.stringify("second"));
   });
 
   it("should store null values", () => {
     setLocalStorage("test-null", null);
 
-    const stored = mocksLocalStorage.getItem("test-null");
-    expect(stored).toBe(JSON.stringify(null));
+    expect(mocksLocalStorage.getItem("test-null")).toBe(JSON.stringify(null));
   });
 });
