@@ -7,6 +7,10 @@ describe("getLocalStorage", () => {
     mockLocalStorage.clear();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should return parsed data when key exists", () => {
     const testData = { title: "test", value: 123 };
     mockLocalStorage.setItem("test-key", JSON.stringify(testData));

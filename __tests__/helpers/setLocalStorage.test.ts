@@ -7,6 +7,10 @@ describe("setLocalStorage", () => {
     mockLocalStorage.clear();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should store data in localStorage as JSON", () => {
     const testData = { title: "test", value: 123 };
 

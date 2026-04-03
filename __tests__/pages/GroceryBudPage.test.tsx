@@ -3,12 +3,14 @@ import userEvent from "@testing-library/user-event";
 
 import GroceryBudPage from "@/pages/GroceryBudPage/GroceryBudPage";
 
+import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
+
 import { mockItems } from "@tests/__mocks__/items.mock";
 import { mockLocalStorage } from "@tests/__mocks__/localStorage.mock";
 
-import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
+type RenderPage = { container: HTMLElement };
 
-const renderPage = () => {
+const renderPage = (): RenderPage => {
   const { container } = render(<GroceryBudPage />);
   return { container };
 };
@@ -16,6 +18,10 @@ const renderPage = () => {
 describe("GroceryBudPage", () => {
   beforeEach(() => {
     mockLocalStorage.clear();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it("should render the page title", () => {

@@ -1,13 +1,17 @@
 import { getItemsFromLocalStorage } from "@/helpers/getItemsFromLocalStorage";
 
+import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
+
 import { mockItems } from "@tests/__mocks__/items.mock";
 import { mockLocalStorage } from "@tests/__mocks__/localStorage.mock";
-
-import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
 
 describe("getItemsFromLocalStorage", () => {
   beforeEach(() => {
     mockLocalStorage.clear();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it("should return items from localStorage", () => {
