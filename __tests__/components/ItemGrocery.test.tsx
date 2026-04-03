@@ -10,14 +10,14 @@ type RenderComponent = {
 };
 
 const renderComponent = (overrides?: Partial<ItemGroceryProps>): RenderComponent => {
-  const removeItem = jest.fn();
-  const editItem = jest.fn();
+  const mockRemoveItem = jest.fn();
+  const mockEditItem = jest.fn();
 
   const props: ItemGroceryProps = {
     id: "1",
     title: "Buy milk",
-    removeItem,
-    editItem,
+    removeItem: mockRemoveItem,
+    editItem: mockEditItem,
     ...overrides,
   };
 
@@ -43,15 +43,15 @@ describe("ItemGrocery", () => {
   });
 
   it("should call editItem with id and title when edit button is clicked", async () => {
-    const editItem = jest.fn();
+    const mockEditItem = jest.fn();
     const user = userEvent.setup();
 
-    renderComponent({ editItem });
+    renderComponent({ editItem: mockEditItem });
 
     await user.click(screen.getByRole("button", { name: "Edit Buy milk" }));
 
-    expect(editItem).toHaveBeenCalledWith("1", "Buy milk");
-    expect(editItem).toHaveBeenCalledTimes(1);
+    expect(mockEditItem).toHaveBeenCalledWith("1", "Buy milk");
+    expect(mockEditItem).toHaveBeenCalledTimes(1);
   });
 
   it("should call removeItem with id when remove button is clicked", async () => {
@@ -67,14 +67,14 @@ describe("ItemGrocery", () => {
   });
 
   it("should not call editItem when not clicked", () => {
-    const editItem = jest.fn();
-    renderComponent({ editItem });
-    expect(editItem).not.toHaveBeenCalled();
+    const mockEditItem = jest.fn();
+    renderComponent({ editItem: mockEditItem });
+    expect(mockEditItem).not.toHaveBeenCalled();
   });
 
   it("should not call removeItem when not clicked", () => {
-    const removeItem = jest.fn();
-    renderComponent({ removeItem });
-    expect(removeItem).not.toHaveBeenCalled();
+    const mockRemoveItem = jest.fn();
+    renderComponent({ removeItem: mockRemoveItem });
+    expect(mockRemoveItem).not.toHaveBeenCalled();
   });
 });
