@@ -1,15 +1,15 @@
 import { getLocalStorage } from "@/helpers/getLocalStorage";
 
-import { mocksLocalStorage } from "@tests/__mocks__/localStorage.mock";
+import { mockLocalStorage } from "@tests/__mocks__/localStorage.mock";
 
 describe("getLocalStorage", () => {
   beforeEach(() => {
-    mocksLocalStorage.clear();
+    mockLocalStorage.clear();
   });
 
   it("should return parsed data when key exists", () => {
     const testData = { title: "test", value: 123 };
-    mocksLocalStorage.setItem("test-key", JSON.stringify(testData));
+    mockLocalStorage.setItem("test-key", JSON.stringify(testData));
 
     const result = getLocalStorage("test-key");
 
@@ -24,7 +24,7 @@ describe("getLocalStorage", () => {
 
   it("should parse arrays correctly", () => {
     const testArray = [1, 2, 3, 4, 5];
-    mocksLocalStorage.setItem("test-array", JSON.stringify(testArray));
+    mockLocalStorage.setItem("test-array", JSON.stringify(testArray));
 
     const result = getLocalStorage("test-array");
 
@@ -33,7 +33,7 @@ describe("getLocalStorage", () => {
 
   it("should parse strings correctly", () => {
     const testString = "hello world";
-    mocksLocalStorage.setItem("test-string", JSON.stringify(testString));
+    mockLocalStorage.setItem("test-string", JSON.stringify(testString));
 
     const result = getLocalStorage("test-string");
 
@@ -41,7 +41,7 @@ describe("getLocalStorage", () => {
   });
 
   it("should parse boolean values correctly", () => {
-    mocksLocalStorage.setItem("test-bool", JSON.stringify(true));
+    mockLocalStorage.setItem("test-bool", JSON.stringify(true));
 
     const result = getLocalStorage("test-bool");
 
@@ -49,7 +49,7 @@ describe("getLocalStorage", () => {
   });
 
   it("should parse number values correctly", () => {
-    mocksLocalStorage.setItem("test-number", JSON.stringify(42));
+    mockLocalStorage.setItem("test-number", JSON.stringify(42));
 
     const result = getLocalStorage("test-number");
 

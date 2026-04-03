@@ -1,17 +1,17 @@
 import { getItemsFromLocalStorage } from "@/helpers/getItemsFromLocalStorage";
 
 import { mockItems } from "@tests/__mocks__/items.mock";
-import { mocksLocalStorage } from "@tests/__mocks__/localStorage.mock";
+import { mockLocalStorage } from "@tests/__mocks__/localStorage.mock";
 
 import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
 
 describe("getItemsFromLocalStorage", () => {
   beforeEach(() => {
-    mocksLocalStorage.clear();
+    mockLocalStorage.clear();
   });
 
   it("should return items from localStorage", () => {
-    mocksLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
+    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
 
     const result = getItemsFromLocalStorage();
 
@@ -25,7 +25,7 @@ describe("getItemsFromLocalStorage", () => {
   });
 
   it("should return empty array when localStorage has null", () => {
-    mocksLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, "null");
+    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, "null");
 
     const result = getItemsFromLocalStorage();
 

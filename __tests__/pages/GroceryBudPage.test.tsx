@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import GroceryBudPage from "@/pages/GroceryBudPage/GroceryBudPage";
 
 import { mockItems } from "@tests/__mocks__/items.mock";
-import { mocksLocalStorage } from "@tests/__mocks__/localStorage.mock";
+import { mockLocalStorage } from "@tests/__mocks__/localStorage.mock";
 
 import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
 
@@ -15,7 +15,7 @@ const renderPage = () => {
 
 describe("GroceryBudPage", () => {
   beforeEach(() => {
-    mocksLocalStorage.clear();
+    mockLocalStorage.clear();
   });
 
   it("should render the page title", () => {
@@ -34,7 +34,7 @@ describe("GroceryBudPage", () => {
   });
 
   it("should display items loaded from localStorage on mount", () => {
-    mocksLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
+    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
     renderPage();
     expect(screen.getByText("Buy milk")).toBeInTheDocument();
   });
@@ -45,7 +45,7 @@ describe("GroceryBudPage", () => {
   });
 
   it("should show clear items button when there are items", () => {
-    mocksLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
+    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
     renderPage();
     expect(screen.getByRole("button", { name: "Clear all items" })).toBeInTheDocument();
   });
@@ -91,7 +91,7 @@ describe("GroceryBudPage", () => {
   });
 
   it("should load item into the form and switch to edit mode", async () => {
-    mocksLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
+    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
     const user = userEvent.setup();
     renderPage();
 
@@ -102,7 +102,7 @@ describe("GroceryBudPage", () => {
   });
 
   it("should update the item title after editing and submitting", async () => {
-    mocksLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
+    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
     const user = userEvent.setup();
     renderPage();
 
@@ -118,7 +118,7 @@ describe("GroceryBudPage", () => {
   });
 
   it("should show success alert after editing an item", async () => {
-    mocksLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
+    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
     const user = userEvent.setup();
     renderPage();
 
@@ -133,7 +133,7 @@ describe("GroceryBudPage", () => {
   });
 
   it("should remove an item when the remove button is clicked", async () => {
-    mocksLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
+    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
     const user = userEvent.setup();
     renderPage();
 
@@ -143,7 +143,7 @@ describe("GroceryBudPage", () => {
   });
 
   it("should clear all items when clear items button is clicked", async () => {
-    mocksLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
+    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
     const user = userEvent.setup();
     renderPage();
 
