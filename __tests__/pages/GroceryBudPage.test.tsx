@@ -8,7 +8,9 @@ import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
 import { mockItems } from "@tests/__mocks__/items.mock";
 import { mockLocalStorage } from "@tests/__mocks__/localStorage.mock";
 
-type RenderPage = { container: HTMLElement };
+interface RenderPage {
+  container: HTMLElement;
+}
 
 const renderPage = (): RenderPage => {
   const { container } = render(<GroceryBudPage />);

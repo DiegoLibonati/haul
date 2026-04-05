@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { Alert, Item } from "@/types/app";
-import { EditState, FormState } from "@/types/states";
+import type { JSX } from "react";
+import type { Alert } from "@/types/app";
+import type { EditState } from "@/types/states";
 
 import ItemGrocery from "@/components/ItemGrocery/ItemGrocery";
 
@@ -12,8 +13,8 @@ import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
 
 import "@/pages/GroceryBudPage/GroceryBudPage.css";
 
-const GroceryBudPage = () => {
-  const [items, setItems] = useState<Item[]>(getItemsFromLocalStorage());
+const GroceryBudPage = (): JSX.Element => {
+  const [items, setItems] = useState(getItemsFromLocalStorage());
   const [edit, setEdit] = useState<EditState>({
     idEdit: "",
     isEditing: false,
@@ -23,7 +24,7 @@ const GroceryBudPage = () => {
     message: "",
     show: false,
   });
-  const [form, setForm] = useState<FormState>({
+  const [form, setForm] = useState({
     name: "",
   });
 
@@ -34,19 +35,21 @@ const GroceryBudPage = () => {
     setForm((state) => ({ ...state, [name]: value }));
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
     const name = form.name.trim();
     const isEditing = edit.isEditing;
     const idEdit = edit.idEdit;
 
-    if (!name)
-      return setAlert({
+    if (!name) {
+      setAlert({
         type: "error",
         message: "Invalid entry",
         show: true,
       });
+      return;
+    }
 
     if (isEditing) {
       setAlert({
@@ -80,13 +83,13 @@ const GroceryBudPage = () => {
     setForm((state) => ({ ...state, name: "" }));
   };
 
-  const handleDeleteItem = (id: string) => {
+  const handleDeleteItem = (id: string): void => {
     const arr = items.filter((item) => item.id !== id);
     setAlert({ type: "error", message: "Removed successfully", show: true });
     setItems(arr);
   };
 
-  const handleEditItem = (id: string, title: string) => {
+  const handleEditItem = (id: string, title: string): void => {
     setEdit((state) => ({ ...state, idEdit: id, isEditing: true }));
     setForm((state) => ({ ...state, name: title }));
   };
@@ -100,7 +103,9 @@ const GroceryBudPage = () => {
       setAlert({ type: "", message: "", show: false });
     }, 3000);
 
-    return () => clearTimeout(timeout);
+    return (): void => {
+      clearTimeout(timeout);
+    };
   }, [alert.show]);
 
   useEffect(() => {
@@ -140,16 +145,18 @@ const GroceryBudPage = () => {
       </section>
 
       <section className="items">
-        {items?.map((item) => (
-          <ItemGrocery
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            removeItem={handleDeleteItem}
-            editItem={handleEditItem}
-          ></ItemGrocery>
-        ))}
-        {items?.length !== 0 && (
+        {items.map(
+          (item): JSX.Element => (
+            <ItemGrocery
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              removeItem={handleDeleteItem}
+              editItem={handleEditItem}
+            ></ItemGrocery>
+          )
+        )}
+        {items.length !== 0 && (
           <button
             className="items__btn-clear-items"
             aria-label="Clear all items"

@@ -5,10 +5,10 @@ import type { ItemGroceryProps } from "@/types/props";
 
 import ItemGrocery from "@/components/ItemGrocery/ItemGrocery";
 
-type RenderComponent = {
+interface RenderComponent {
   container: HTMLElement;
   props: ItemGroceryProps;
-};
+}
 
 const mockRemoveItem = jest.fn();
 const mockEditItem = jest.fn();

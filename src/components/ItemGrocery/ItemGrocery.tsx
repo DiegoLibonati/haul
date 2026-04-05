@@ -1,10 +1,11 @@
 import { BsTrash, BsPencil } from "react-icons/bs";
 
-import { ItemGroceryProps } from "@/types/props";
+import type { JSX } from "react";
+import type { ItemGroceryProps } from "@/types/props";
 
 import "@/components/ItemGrocery/ItemGrocery.css";
 
-const ItemGrocery = ({ id, title, removeItem, editItem }: ItemGroceryProps) => {
+const ItemGrocery = ({ id, title, removeItem, editItem }: ItemGroceryProps): JSX.Element => {
   return (
     <article className="item-grocery">
       <h2 className="item-grocery__title">{title}</h2>
@@ -14,7 +15,9 @@ const ItemGrocery = ({ id, title, removeItem, editItem }: ItemGroceryProps) => {
           type="button"
           aria-label={`Edit ${title}`}
           className="item-grocery__btn item-grocery__btn-edit"
-          onClick={() => editItem(id, title)}
+          onClick={() => {
+            editItem(id, title);
+          }}
         >
           <BsPencil className="item-grocery__btn-edit-icon"></BsPencil>
         </button>
@@ -22,7 +25,9 @@ const ItemGrocery = ({ id, title, removeItem, editItem }: ItemGroceryProps) => {
           type="button"
           aria-label={`Remove ${title}`}
           className="item-grocery__btn item-grocery__btn-remove"
-          onClick={() => removeItem(id)}
+          onClick={() => {
+            removeItem(id);
+          }}
         >
           <BsTrash className="item-grocery__btn-remove-icon"></BsTrash>
         </button>

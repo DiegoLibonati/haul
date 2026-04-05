@@ -51,6 +51,7 @@ I made a web application that serves as a notepad of items in a list. In this li
 "@vitejs/plugin-react": "^5.0.2"
 "eslint": "^9.0.0"
 "eslint-config-prettier": "^9.0.0"
+"eslint-plugin-prettier": "^5.5.5"
 "eslint-plugin-react-hooks": "^5.0.0"
 "eslint-plugin-react-refresh": "^0.4.0"
 "globals": "^15.0.0"

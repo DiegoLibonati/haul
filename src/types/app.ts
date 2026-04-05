@@ -1,10 +1,10 @@
-export type Alert = {
+export interface Alert {
   type: string;
   message: string;
   show: boolean;
-};
+}
 
-export type Item = {
+export interface Item {
   id: string;
   title: string;
-};
+}

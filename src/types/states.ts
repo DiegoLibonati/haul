@@ -1,8 +1,8 @@
-export type EditState = {
+export interface EditState {
   idEdit: string;
   isEditing: boolean;
-};
+}
 
-export type FormState = {
+export interface FormState {
   name: string;
-};
+}
