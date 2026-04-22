@@ -1,62 +1,43 @@
 import { getLocalStorage } from "@/helpers/getLocalStorage";
 
-import { mockLocalStorage } from "@tests/__mocks__/localStorage.mock";
-
 describe("getLocalStorage", () => {
   beforeEach(() => {
-    mockLocalStorage.clear();
+    localStorage.clear();
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  describe("when the key has a stored value", () => {
+    it("should return the parsed object", () => {
+      localStorage.setItem("test-key", JSON.stringify({ name: "Alice" }));
+      const result = getLocalStorage("test-key");
+      expect(result).toEqual({ name: "Alice" });
+    });
+
+    it("should return the parsed array", () => {
+      const data = [{ id: "1", title: "Buy milk" }];
+      localStorage.setItem("test-key", JSON.stringify(data));
+      const result = getLocalStorage("test-key");
+      expect(result).toEqual(data);
+    });
+
+    it("should return a parsed number", () => {
+      localStorage.setItem("test-key", JSON.stringify(42));
+      const result = getLocalStorage("test-key");
+      expect(result).toBe(42);
+    });
   });
 
-  it("should return parsed data when key exists", () => {
-    const testData = { title: "test", value: 123 };
-    mockLocalStorage.setItem("test-key", JSON.stringify(testData));
-
-    const result = getLocalStorage("test-key");
-
-    expect(result).toEqual(testData);
+  describe("when the key does not exist", () => {
+    it("should return null", () => {
+      const result = getLocalStorage("missing-key");
+      expect(result).toBeNull();
+    });
   });
 
-  it("should return null when key does not exist", () => {
-    const result = getLocalStorage("non-existent-key");
-
-    expect(result).toBeNull();
-  });
-
-  it("should parse arrays correctly", () => {
-    const testArray = [1, 2, 3, 4, 5];
-    mockLocalStorage.setItem("test-array", JSON.stringify(testArray));
-
-    const result = getLocalStorage("test-array");
-
-    expect(result).toEqual(testArray);
-  });
-
-  it("should parse strings correctly", () => {
-    const testString = "hello world";
-    mockLocalStorage.setItem("test-string", JSON.stringify(testString));
-
-    const result = getLocalStorage("test-string");
-
-    expect(result).toBe(testString);
-  });
-
-  it("should parse boolean values correctly", () => {
-    mockLocalStorage.setItem("test-bool", JSON.stringify(true));
-
-    const result = getLocalStorage("test-bool");
-
-    expect(result).toBe(true);
-  });
-
-  it("should parse number values correctly", () => {
-    mockLocalStorage.setItem("test-number", JSON.stringify(42));
-
-    const result = getLocalStorage("test-number");
-
-    expect(result).toBe(42);
+  describe("when the key has an empty string value", () => {
+    it("should return null", () => {
+      localStorage.setItem("test-key", "");
+      const result = getLocalStorage("test-key");
+      expect(result).toBeNull();
+    });
   });
 });

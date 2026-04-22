@@ -11,9 +11,9 @@ import { setLocalStorage } from "@/helpers/setLocalStorage";
 
 import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
 
-import "@/pages/GroceryBudPage/GroceryBudPage.css";
+import "@/pages/HaulPage/HaulPage.css";
 
-const GroceryBudPage = (): JSX.Element => {
+const HaulPage = (): JSX.Element => {
   const [items, setItems] = useState(getItemsFromLocalStorage());
   const [edit, setEdit] = useState<EditState>({
     idEdit: "",
@@ -113,9 +113,9 @@ const GroceryBudPage = (): JSX.Element => {
   }, [items]);
 
   return (
-    <main className="grocery-bud-page">
+    <main className="haul-page">
       <section className="header-wrapper">
-        <h2 className="header-wrapper__title">Grocery Bud</h2>
+        <h2 className="header-wrapper__title">Haul</h2>
 
         {alert.show && (
           <h3 className={`header-wrapper__alert header-wrapper__alert--${alert.type}`}>
@@ -170,4 +170,4 @@ const GroceryBudPage = (): JSX.Element => {
   );
 };
 
-export default GroceryBudPage;
+export default HaulPage;

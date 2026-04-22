@@ -1,38 +1,44 @@
+import type { Item } from "@/types/app";
+
 import { getItemsFromLocalStorage } from "@/helpers/getItemsFromLocalStorage";
-
-import { LOCAL_STORAGE_KEY_ITEMS } from "@/constants/vars";
-
-import { mockItems } from "@tests/__mocks__/items.mock";
-import { mockLocalStorage } from "@tests/__mocks__/localStorage.mock";
 
 describe("getItemsFromLocalStorage", () => {
   beforeEach(() => {
-    mockLocalStorage.clear();
+    localStorage.clear();
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  describe("when localStorage has valid items", () => {
+    it("should return the parsed items array", () => {
+      const mockData: Item[] = [{ id: "1", title: "Buy milk" }];
+      localStorage.setItem("items", JSON.stringify(mockData));
+      const result = getItemsFromLocalStorage();
+      expect(result).toEqual(mockData);
+    });
+
+    it("should return all items when multiple exist", () => {
+      const mockData: Item[] = [
+        { id: "1", title: "Buy milk" },
+        { id: "2", title: "Buy eggs" },
+      ];
+      localStorage.setItem("items", JSON.stringify(mockData));
+      const result = getItemsFromLocalStorage();
+      expect(result).toHaveLength(2);
+      expect(result).toEqual(mockData);
+    });
   });
 
-  it("should return items from localStorage", () => {
-    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, JSON.stringify(mockItems));
-
-    const result = getItemsFromLocalStorage();
-
-    expect(result).toEqual(mockItems);
+  describe("when localStorage is empty", () => {
+    it("should return an empty array", () => {
+      const result = getItemsFromLocalStorage();
+      expect(result).toEqual([]);
+    });
   });
 
-  it("should return empty array when no items in localStorage", () => {
-    const result = getItemsFromLocalStorage();
-
-    expect(result).toEqual([]);
-  });
-
-  it("should return empty array when localStorage has null", () => {
-    mockLocalStorage.setItem(LOCAL_STORAGE_KEY_ITEMS, "null");
-
-    const result = getItemsFromLocalStorage();
-
-    expect(result).toEqual([]);
+  describe("when the key has an empty string value", () => {
+    it("should return an empty array", () => {
+      localStorage.setItem("items", "");
+      const result = getItemsFromLocalStorage();
+      expect(result).toEqual([]);
+    });
   });
 });

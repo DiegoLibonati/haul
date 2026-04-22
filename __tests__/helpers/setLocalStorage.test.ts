@@ -1,62 +1,48 @@
 import { setLocalStorage } from "@/helpers/setLocalStorage";
 
-import { mockLocalStorage } from "@tests/__mocks__/localStorage.mock";
-
 describe("setLocalStorage", () => {
   beforeEach(() => {
-    mockLocalStorage.clear();
+    localStorage.clear();
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  describe("when storing an object", () => {
+    it("should store the value as a JSON string", () => {
+      const data = { name: "Alice" };
+      setLocalStorage("test-key", data);
+      expect(localStorage.getItem("test-key")).toBe(JSON.stringify(data));
+    });
   });
 
-  it("should store data in localStorage as JSON", () => {
-    const testData = { title: "test", value: 123 };
+  describe("when storing an array", () => {
+    it("should store the array as a JSON string", () => {
+      const data = [{ id: "1", title: "Buy milk" }];
+      setLocalStorage("test-key", data);
+      expect(localStorage.getItem("test-key")).toBe(JSON.stringify(data));
+    });
 
-    setLocalStorage("test-key", testData);
-
-    expect(mockLocalStorage.getItem("test-key")).toBe(JSON.stringify(testData));
+    it("should store an empty array as a JSON string", () => {
+      setLocalStorage("test-key", []);
+      expect(localStorage.getItem("test-key")).toBe("[]");
+    });
   });
 
-  it("should store arrays in localStorage", () => {
-    const testArray = [1, 2, 3, 4, 5];
+  describe("when storing a primitive value", () => {
+    it("should store a string as a JSON string", () => {
+      setLocalStorage("test-key", "hello");
+      expect(localStorage.getItem("test-key")).toBe('"hello"');
+    });
 
-    setLocalStorage("test-array", testArray);
-
-    expect(mockLocalStorage.getItem("test-array")).toBe(JSON.stringify(testArray));
+    it("should store a number as a JSON string", () => {
+      setLocalStorage("test-key", 42);
+      expect(localStorage.getItem("test-key")).toBe("42");
+    });
   });
 
-  it("should store strings in localStorage", () => {
-    const testString = "hello world";
-
-    setLocalStorage("test-string", testString);
-
-    expect(mockLocalStorage.getItem("test-string")).toBe(JSON.stringify(testString));
-  });
-
-  it("should store boolean values in localStorage", () => {
-    setLocalStorage("test-bool", true);
-
-    expect(mockLocalStorage.getItem("test-bool")).toBe(JSON.stringify(true));
-  });
-
-  it("should store number values in localStorage", () => {
-    setLocalStorage("test-number", 42);
-
-    expect(mockLocalStorage.getItem("test-number")).toBe(JSON.stringify(42));
-  });
-
-  it("should overwrite existing data", () => {
-    setLocalStorage("test-key", "first");
-    setLocalStorage("test-key", "second");
-
-    expect(mockLocalStorage.getItem("test-key")).toBe(JSON.stringify("second"));
-  });
-
-  it("should store null values", () => {
-    setLocalStorage("test-null", null);
-
-    expect(mockLocalStorage.getItem("test-null")).toBe(JSON.stringify(null));
+  describe("when overwriting an existing key", () => {
+    it("should replace the previous value", () => {
+      setLocalStorage("test-key", { old: true });
+      setLocalStorage("test-key", { new: true });
+      expect(localStorage.getItem("test-key")).toBe(JSON.stringify({ new: true }));
+    });
   });
 });

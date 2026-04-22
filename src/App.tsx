@@ -1,9 +1,9 @@
 import type { JSX } from "react";
 
-import GroceryBudPage from "@/pages/GroceryBudPage/GroceryBudPage";
+import HaulPage from "@/pages/HaulPage/HaulPage";
 
 function App(): JSX.Element {
-  return <GroceryBudPage></GroceryBudPage>;
+  return <HaulPage></HaulPage>;
 }
 
 export default App;

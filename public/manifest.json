@@ -1,7 +1,7 @@
 {
-  "name": "Grocery Bud React",
-  "short_name": "Grocery Bud",
-  "description": "I made a web application that serves as a notepad of items in a list. In this list we will be able to enter the items with any name we want, also we will be able to edit and delete them. If we want we can also delete all the items of the list touching in `Clear Items`. Every time we perform an action we will see an alert for success or error. In addition all the information is saved in the LocalStorage in this way, the values will persist.",
+  "name": "Haul",
+  "short_name": "Haul",
+  "description": "Haul is a lightweight, single-page grocery list application built with React and TypeScript. It lets you manage a personal shopping list entirely in the browser — no account, no server, no setup required beyond opening the app.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
