@@ -1,7 +1,7 @@
 {
   "name": "Haul",
   "short_name": "Haul",
-  "description": "Haul is a lightweight, single-page grocery list application built with React and TypeScript. It lets you manage a personal shopping list entirely in the browser — no account, no server, no setup required beyond opening the app.",
+  "description": "Haul is a lightweight, single-page grocery list application built with React and TypeScript.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
