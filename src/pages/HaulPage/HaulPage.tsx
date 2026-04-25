@@ -99,6 +99,8 @@ const HaulPage = (): JSX.Element => {
   };
 
   useEffect(() => {
+    if (!alert.show) return;
+
     const timeout = setTimeout(() => {
       setAlert({ type: "", message: "", show: false });
     }, 3000);

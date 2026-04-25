@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import type { RenderResult } from "@testing-library/react";
@@ -245,14 +245,12 @@ describe("HaulPage", () => {
         await user.type(screen.getByLabelText("Grocery item name"), "Buy eggs");
         await user.click(screen.getByRole("button", { name: "Add item" }));
         expect(screen.getByRole("heading", { name: "Added successfully" })).toBeInTheDocument();
-        act(() => {
-          jest.advanceTimersByTime(3001);
+        await act(async () => {
+          await jest.advanceTimersByTimeAsync(3001);
         });
-        await waitFor(() => {
-          expect(
-            screen.queryByRole("heading", { name: "Added successfully" })
-          ).not.toBeInTheDocument();
-        });
+        expect(
+          screen.queryByRole("heading", { name: "Added successfully" })
+        ).not.toBeInTheDocument();
       });
 
       it("should still show the alert before 3 seconds have passed", async () => {
@@ -261,8 +259,8 @@ describe("HaulPage", () => {
         renderPage();
         await user.type(screen.getByLabelText("Grocery item name"), "Buy eggs");
         await user.click(screen.getByRole("button", { name: "Add item" }));
-        act(() => {
-          jest.advanceTimersByTime(2999);
+        await act(async () => {
+          await jest.advanceTimersByTimeAsync(2999);
         });
         expect(screen.getByRole("heading", { name: "Added successfully" })).toBeInTheDocument();
       });
