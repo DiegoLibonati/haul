@@ -6,15 +6,6 @@ This project was created primarily for **educational and learning purposes**.
 While it is well-structured and could technically be used in production, it is **not intended for commercialization**.  
 The main goal is to explore and demonstrate best practices, patterns, and technologies in software development.
 
-## Getting Started
-
-1. Clone the repository
-2. Navigate to the project folder
-3. Execute: `npm install`
-4. Execute: `npm run dev`
-
-The application will open automatically at `http://localhost:3000`
-
 ## Description
 
 **Haul** is a lightweight, single-page grocery list application built with React and TypeScript. It lets you manage a personal shopping list entirely in the browser — no account, no server, no setup required beyond opening the app.
@@ -34,6 +25,8 @@ All data is persisted to the browser's `localStorage`, meaning your list survive
 5. CSS3
 
 ## Libraries used
+
+On top of the stack above, the project pulls in the following libraries, grouped by their role:
 
 #### Dependencies
 
@@ -73,11 +66,20 @@ All data is persisted to the browser's `localStorage`, meaning your list survive
 "vite": "^7.1.6"
 ```
 
-## Portfolio Link
+## Getting Started
 
-[`https://www.diegolibonati.com.ar/#/project/haul`](https://www.diegolibonati.com.ar/#/project/haul)
+With the stack and dependencies in place, run Haul locally with the following steps:
+
+1. Clone the repository
+2. Navigate to the project folder
+3. Execute: `npm install`
+4. Execute: `npm run dev`
+
+The application will open automatically at `http://localhost:3000`
 
 ## Testing
+
+Once the app is running, you can verify behavior with the included test suite:
 
 1. Navigate to the project folder
 2. Execute: `npm test`
@@ -88,7 +90,9 @@ For coverage report:
 npm run test:coverage
 ```
 
-## Security
+## Security Audit
+
+Beyond functional tests, the project includes tooling to audit dependencies and overall code health.
 
 ### npm audit
 
@@ -115,3 +119,7 @@ npm run doctor -- --verbose
 ## Known Issues
 
 None at the moment.
+
+## Portfolio Link
+
+[`https://www.diegolibonati.com.ar/#/project/haul`](https://www.diegolibonati.com.ar/#/project/haul)
