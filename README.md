@@ -68,6 +68,12 @@ On top of the stack above, the project pulls in the following libraries, grouped
 
 ## Getting Started
 
+### Prerequisites
+
+- **Node.js 22+** (the repository pins the version via `.nvmrc`; run `nvm use` to switch automatically).
+
+### Run locally
+
 With the stack and dependencies in place, run Haul locally with the following steps:
 
 1. Clone the repository
@@ -89,6 +95,54 @@ For coverage report:
 ```bash
 npm run test:coverage
 ```
+
+## Continuous Integration
+
+The repository ships with a **GitHub Actions** pipeline defined in [`.github/workflows/ci.yml`](.github/workflows/ci.yml). It runs automatically on every `push` and `pull_request` targeting the `main` branch, guaranteeing that the codebase stays lintable, type-safe, well-tested and buildable before any change is merged.
+
+### Pipeline overview
+
+```
+              ┌─── PR or push to main ───┐
+              ▼
+┌──────────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│    lint-and-audit    │─▶│      testing     │─▶│       build      │
+│   eslint · tsc      │  │   jest (jsdom)   │  │    vite build    │
+└──────────────────────┘  └──────────────────┘  └──────────────────┘
+```
+
+All jobs run on `ubuntu-latest`, use the Node.js version pinned in [`.nvmrc`](.nvmrc) via `actions/setup-node` (with `npm` cache enabled), and install dependencies with `npm ci` to honor the committed `package-lock.json`.
+
+### Validation jobs
+
+1. **`lint-and-audit`** — runs `npm run lint` (ESLint over `src/`) followed by `npm run type-check` (`tsc -p tsconfig.app.json --noEmit`). Acts as the fast gate: a lint or type error fails the pipeline before any test or build runs.
+2. **`testing`** — runs the full Jest suite headlessly under `jest-environment-jsdom` with `npm run test`. Depends on `lint-and-audit` succeeding first.
+3. **`build`** — produces a production bundle with `npm run build` (TypeScript compilation + Vite build) to guarantee that the app is shippable. Depends on `testing` succeeding first.
+
+Jobs are chained with `needs:` so the pipeline aborts as soon as the first failure happens, saving runner minutes on the downstream stages.
+
+### Running the same checks locally
+
+```bash
+# lint-and-audit
+npm run lint
+npm run type-check
+
+# testing
+npm test
+
+# build
+npm run build
+```
+
+### Where the build outputs live
+
+| Output                                           | Location                                                    |
+| ------------------------------------------------ | ----------------------------------------------------------- |
+| Validation logs (lint, type-check, tests, build) | **Actions** tab on GitHub                                   |
+| Production bundle from `vite build`              | Ephemeral, inside the runner (not published as an artifact) |
+
+> **Note:** this pipeline only validates changes — it does not cut releases, publish artifacts or push tags back to `main`. Releases, if needed, are produced manually.
 
 ## Security Audit
 
